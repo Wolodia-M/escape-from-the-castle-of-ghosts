@@ -27,8 +27,10 @@
 #include "random"
 // For timers
 #include "ctime"
-// Wor with file
+// Work with file
 #include "filesystem"
+#include "fstream"
+// Platform specific
 #if defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
 #include "windows.h"
 #elif defined(__linux__) || defined(__linux) || defined(linux)
@@ -48,9 +50,10 @@ const string GAME_NAME = "Escape from the Castle of ghosts";
 // DEBUG_DECODE_LEVEL           - print raw data from level decoding
 // DEBUG_WINDOVED               - set game to windoved mode
 // Variables
-bool is_run = 1;// Objects
-bool help_loaded = false;
-int temp_level_number;
+bool is_run = 1;                        // Control run of game
+bool time_writed = false;               // Used for write statiscics
+int temp_level_number;                  // Used internally in level loading
+clock_t timer = 0;                      // Timer for time of play
 SDL_Window* window = NULL;              // App window 
 SDL_Event event;                        // App event handler
 Mix_Music* music = NULL;                // App music handler

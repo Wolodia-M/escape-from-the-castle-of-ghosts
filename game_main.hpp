@@ -124,9 +124,11 @@ void game::tick()
                 }
                 break;
             case SDLK_F12:
+                time_writed = true;
                 engine.cheat();
                 break;
             case SDLK_F10:
+                time_writed = true;
                 engine.cheated = 1;
                 engine.setState(engine.getState() + 1);
                 break;
@@ -170,10 +172,12 @@ void game::tick()
             }
             else if (SDL_GameControllerGetButton(joystick, SDL_CONTROLLER_BUTTON_B) != 0)
             {
+                time_writed = true;
                 engine.cheat();
             }
             else if (SDL_GameControllerGetButton(joystick, SDL_CONTROLLER_BUTTON_Y) != 0)
             {
+                time_writed = true;
                 engine.cheated = 1;
                 engine.setState(engine.getState() + 1);
             }
@@ -227,6 +231,10 @@ void game::tick()
     }
     else if (engine.getState() != 0 && engine.getState() != engine.ENDSTATE)
     {
+        if (lastLevel == 0 && engine.getState() == 1)
+        {
+            timer = clock();
+        }
         if (lastLevel != engine.getState()) Mix_PlayMusic(music, -1);
         string temp = "data/levels/level";
         temp += to_string((engine.getState() - 1));
@@ -236,6 +244,31 @@ void game::tick()
     }
     else if (engine.getState() == engine.ENDSTATE)
     {
+        if (!time_writed)
+        {
+            timer = clock() - timer;
+            fstream it;
+            it.open("data/itteration", ios::in);
+            string temp;
+            getline(it, temp);
+            it.close();
+            int iter = stoi(temp);
+            it.open("data/itteration", ios::out);
+            it.seekp(0);
+            it << (iter + 1);
+            it.close();
+            it.open("data/times.txt", ios::app);
+            it  << "Run - " 
+                << iter 
+                << " : " 
+                << "Time - " 
+                << (timer / CLOCKS_PER_SEC) 
+                << ", Raw time - "
+                << timer
+                << "\n";
+            it.close();
+            time_writed = true;
+        }
         // Play mein menu theme
         if (lastLevel != engine.getState()) Mix_PlayMusic(music, -1);
         Mix_Volume(-1, 8);

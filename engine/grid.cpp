@@ -352,7 +352,7 @@ void EngineClassGrid::getNewEnemyPos()
 }
 bool EngineClassGrid::getPlayerEnemyCollision(int _x, int _y)
 {
-    bool ret;
+    bool ret = false;
     for(int i = enemyCnt; i > 0; i--)
     {
         enemy *e = &enemies.at(i - 1);
@@ -360,10 +360,6 @@ bool EngineClassGrid::getPlayerEnemyCollision(int _x, int _y)
         ((e->gy == _y) || (e->gy == (_y + 1)) || (e->gy == (_y - 1))))
         {
             ret = true;
-        }
-        else
-        {
-            ret = false;
         }
     }
     return ret;

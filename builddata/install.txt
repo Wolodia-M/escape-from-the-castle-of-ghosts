@@ -1,0 +1,1 @@
+Unpack all files to directory and run E\escape-from-castle-of-the-ghosts.exe to run game
