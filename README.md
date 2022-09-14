@@ -1,4 +1,4 @@
-# escape-from-the-castle-of-ghosts
+# [escape-from-the-castle-of-ghosts](https://wolodiam.itch.io/escape-from-the-castle-of-ghosts)
 Simple game where you need to escape from a castle with ghosts
 # Control
 Space, A on gamepad  - start game on title screan, endgame on end screan <br>
